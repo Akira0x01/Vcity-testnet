@@ -1,0 +1,3 @@
+node/public/bin/*
+node/public/scripts/.env
+node/linux/.env
