@@ -23,7 +23,8 @@ case $node_type in
         ;;
 esac
 
-docker-compose down $node_type
+docker-compose stop $node_type
+docker-compose rm -f $node_type
 
 if [ "$clearOldData" = "yes" ]; then
     echo "Clearing old data before starting the node..."
