@@ -1,3 +1,4 @@
 node/public/bin/*
 node/public/scripts/.env
 node/linux/.env
+node/public/node_files/.env

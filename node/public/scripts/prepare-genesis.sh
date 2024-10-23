@@ -83,9 +83,7 @@ done
 # add genesis validator
 echo "Adding genesis validator..."
 mkdir -p "$DATA_DIR/config/gentx"
-for i in {0..4}; do
-    $BIN gentx key$i 200000000000000000000$DENOM_UNIT --home "$DATA_DIR" --chain-id "$CHAIN_ID" --keyring-backend test --output-document "$DATA_DIR/config/gentx/key$i.json"
-done
+$BIN gentx key0 200000000000000000000$DENOM_UNIT --home "$DATA_DIR" --chain-id "$CHAIN_ID" --keyring-backend test --output-document "$DATA_DIR/config/gentx/key0.json"
 
 # collect genesis transactions
 echo "Collecting genesis transactions..."
@@ -96,4 +94,6 @@ echo "Validating genesis file..."
 $BIN validate-genesis --home "$DATA_DIR"
 
 cp $GENESIS ../genesis.json
-rm -rf $DATA_DIR
+cp $DATA_DIR/config/priv_validator_key.json ../priv_validator_key.json
+cp $DATA_DIR/config/node_key.json ../node_key.json
+# rm -rf $DATA_DIR

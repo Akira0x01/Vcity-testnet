@@ -1,0 +1,46 @@
+services:
+  normal_node:
+    container_name: normal_node
+    image: "vcity/validator"
+    environment:
+      - MONIKER=normal_node
+    volumes:
+      - ../public/node_files:/home/user/node_files
+      - ./nomal_node:/home/user/.vcity
+    command: 
+      - cp -r /home/user/node_files/* /home/user/ && ./start-node.sh normal_node
+    restart: always
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "26656-26657:26656-26657"
+      - "8545:8545"
+      - "1317:1317"
+
+  first_node:
+    container_name: first_node
+    image: "vcity/validator"
+    environment:
+      - MONIKER=first_node
+    volumes:
+      - ../public/node_files:/app/node_files
+      - ./first_node:/home/user/.vcity
+      - ../public/bin/:/home/user/bin
+    command: 
+      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh first_node
+      # - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && tail -f /dev/null
+      # - tail -f /dev/null
+    # restart: always
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "26656-26657:26656-26657"
+      - "8545:8545"
+      - "1317:1317"
+    
