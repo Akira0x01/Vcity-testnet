@@ -51,11 +51,12 @@ sed -i.bak "s/aphoton/$DENOM_UNIT/g" $GENESIS
 sed -i.bak "s/stake/$DENOM_UNIT/g" $GENESIS
 sed -i.bak "s/aevmos/$DENOM_UNIT/g" $GENESIS
 jq '.consensus_params["block"]["max_gas"]="40000000"' "$GENESIS" > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" "$GENESIS"
-jq '.app_state["bank"]["denom_metadata"] |= . + [{"description": "The native staking token of the Vcity Chain.", "denom_units": [{"denom": "uVCITY", "exponent": 0}, {"denom": "VCITY", "exponent": 18}], "base": "uVCITY", "display": "VCITY", "name": "Vcity Token", "symbol": "VCITY"}]' $GENESIS > new_genesis.json && mv new_genesis.json $GENESIS
+jq '.app_state["bank"]["denom_metadata"] |= . + [{"description": "The native staking token of the Vcity Chain.", "denom_units": [{"denom": "uvicty", "exponent": 0}, {"denom": "vcity", "exponent": 18}], "base": "uvicty", "display": "vcity", "name": "Vcity Token", "symbol": "VCITY"}]' $GENESIS > new_genesis.json && mv new_genesis.json $GENESIS
 jq '.app_state["feemarket"]["params"]["base_fee"]="1000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 sed -i.bak 's/"max_deposit_period": "172800s"/"max_deposit_period": "7200s"/g' "$GENESIS"
 sed -i.bak 's/"voting_period": "172800s"/"voting_period": "7200s"/g' "$GENESIS"
 jq '.app_state["gov"]["params"]["min_deposit"][0]["amount"]="10000000000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+jq '.app_state["inflation"]["params"]["mint_denom"]="vcity"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0.900000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["staking"]["params"]["unbonding_time"]="86400s"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
