@@ -121,6 +121,11 @@ if [ "$NODE_TYPE" == "first_node" ]; then
   cp priv_validator_key.json $DATA_DIR/config/priv_validator_key.json
 fi
 
+# start create validator node script
+if [ "$NODE_TYPE" == "validator_node" ]; then
+  nohup ./check_sync_and_create_validator.sh > /dev/null 2>&1 &
+fi
+
 # start node
 echo "Starting node..."
 if [ "$NODE_TYPE" == "snap_node" ]; then

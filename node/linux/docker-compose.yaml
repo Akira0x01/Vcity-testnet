@@ -33,7 +33,7 @@ services:
       - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh first_node
       # - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && tail -f /dev/null
       # - tail -f /dev/null
-    # restart: always
+    restart: always
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
       interval: 30s
@@ -44,3 +44,46 @@ services:
       - "8545:8545"
       - "1317:1317"
     
+    validator_node:
+      container_name: validator_node
+      image: "vcity/validator"
+      environment:
+        - MONIKER=validator_node
+      volumes:
+        - ../public/node_files:/app/node_files
+        - ./validator_node:/home/user/.vcity
+        - ../public/bin/:/home/user/bin
+      command:
+        - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh validator_node
+      restart: always
+      healthcheck:
+        test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+      ports:
+        - "26656-26657:26656-26657"
+        - "8545:8545"
+        - "1317:1317"
+
+    validator_node_2:
+      container_name: validator_node_2
+      image: "vcity/validator"
+      environment:
+        - MONIKER=validator_node_2
+      volumes:
+        - ../public/node_files:/app/node_files
+        - ./validator_node_2:/home/user/.vcity
+        - ../public/bin/:/home/user/bin
+      command:
+        - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh validator_node
+      restart: always
+      healthcheck:
+        test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+        interval: 30s
+        timeout: 10s
+        retries: 5
+      ports:
+        - "26659-26660:26656-26657"
+        - "8546:8545"
+        - "1318:1317"
