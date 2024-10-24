@@ -78,8 +78,8 @@ sed -i "s/moniker = \".*\"/moniker = \"$MONIKER\"/g" $CONFIG
 sed -i '/laddr =/s/127.0.0.1/0.0.0.0/' $CONFIG
 sed -i 's/pprof_laddr = "localhost:6060"/pprof_laddr = "0.0.0.0:6060"/g' "$CONFIG"
 if [ "$NODE_TYPE" != "first_node" ]; then
-  sed -i "s/seeds = \".*\"/seeds = "$SEEDS"/g" "$CONFIG"
-  sed -i "s/persistent_peers = \".*\"/persistent_peers = "$PERSISTENT_PEERS"/g" "$CONFIG"
+  sed -i "s/seeds = \".*\"/seeds = \"$SEEDS\"/g" "$CONFIG"
+  sed -i "s/persistent_peers = \".*\"/persistent_peers = \"$PERSISTENT_PEERS\"/g" "$CONFIG"
 elif [ "$NODE_TYPE" == "first_node" ]; then
   sed -i "s/seeds = \".*\"/seeds = \"\"/g" "$CONFIG"
   sed -i "s/persistent_peers = \".*\"/persistent_peers = \"\"/g" "$CONFIG"
