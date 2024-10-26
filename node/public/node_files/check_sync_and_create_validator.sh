@@ -74,7 +74,7 @@ while true; do
   if [ "$catching_up" = "false" ]; then
     echo "$(date) - Node is synced. Creating validator..." >> $LOG_FILE
     echo "Validator creation command: $VALIDATOR_CMD" >> $LOG_FILE
-    $BIN tx staking create-validator \
+    if $BIN tx staking create-validator \
       --amount=$STAKE_AMOUNT$DENOM_UNIT \
       --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
       --moniker=$MONIKER \
@@ -89,13 +89,12 @@ while true; do
       --keyring-backend=test \
       --home=$DATA_DIR \
       --yes \
-      >> $LOG_FILE 2>&1
-    if [ $? -eq 0 ]; then
+      >> $LOG_FILE 2>&1; then 
         echo "Command executed successfully."
         echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
         break
     else
-        echo "Command failed with exit code $?" >> $LOG_FILE
+        echo "Command failed with exit code" >> $LOG_FILE
     fi
   else
       echo "$(date) - Node is not synced. Waiting for 1 minute." >> $LOG_FILE
