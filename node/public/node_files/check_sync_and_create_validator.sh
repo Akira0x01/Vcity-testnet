@@ -70,37 +70,38 @@ while true; do
   echo "$(date) - Checking if the node is catching up..." >> $LOG_FILE
   echo "Catching up: $catching_up" >> $LOG_FILE
 
-    if [ "$catching_up" = "false" ]; then
-        echo "$(date) - Node is synced. Creating validator..." >> $LOG_FILE
-        echo "Validator creation command: $VALIDATOR_CMD" >> $LOG_FILE
-        $BIN tx staking create-validator \
-          --amount=$STAKE_AMOUNT$DENOM_UNIT \
-          --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
-          --moniker=$MONIKER \
-          --chain-id=$CHAIN_ID \
-          --commission-rate="0.05" \
-          --commission-max-rate="0.10" \
-          --commission-max-change-rate="0.01" \
-          --min-self-delegation="99000000000000000000" \
-          --gas=auto \
-          --gas-prices="100$DENOM_UNIT" \
-          --from=validator \
-          --keyring-backend=test \
-          --home=$DATA_DIR \
-          --yes \
-          >> $LOG_FILE 2>&1
-        if [ $? -eq 0 ]; then
-            echo "Command executed successfully."
-            echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
-            break
-        else
-            echo "Command failed with exit code $?"
-        fi
+  set +e
+  if [ "$catching_up" = "false" ]; then
+    echo "$(date) - Node is synced. Creating validator..." >> $LOG_FILE
+    echo "Validator creation command: $VALIDATOR_CMD" >> $LOG_FILE
+    $BIN tx staking create-validator \
+      --amount=$STAKE_AMOUNT$DENOM_UNIT \
+      --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
+      --moniker=$MONIKER \
+      --chain-id=$CHAIN_ID \
+      --commission-rate="0.05" \
+      --commission-max-rate="0.10" \
+      --commission-max-change-rate="0.01" \
+      --min-self-delegation="99000000000000000000" \
+      --gas=auto \
+      --gas-prices="100$DENOM_UNIT" \
+      --from=validator \
+      --keyring-backend=test \
+      --home=$DATA_DIR \
+      --yes \
+      >> $LOG_FILE 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Command executed successfully."
+        echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
+        break
     else
-        echo "$(date) - Node is not synced. Waiting for 1 minute." >> $LOG_FILE
+        echo "Command failed with exit code $?" >> $LOG_FILE
     fi
-
-    sleep 60
+  else
+      echo "$(date) - Node is not synced. Waiting for 1 minute." >> $LOG_FILE
+  fi
+  set -e
+  sleep 60
 done
 
 echo "$(date) - Validator creation process completed." >> $LOG_FILE
