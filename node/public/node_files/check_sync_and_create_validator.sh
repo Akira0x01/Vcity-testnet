@@ -27,6 +27,8 @@ STAKE_AMOUNT="100000000000000000000"
 PUB_KEY="$($BIN tendermint show-validator --home $DATA_DIR)"
 MONIKER="vcity-validator"
 
+touch $LOG_FILE
+
 VALIDATOR_CMD="$BIN tx staking create-validator \
   --amount $STAKE_AMOUNT$DENOM_UNIT \
   --pubkey $PUB_KEY \
@@ -35,7 +37,7 @@ VALIDATOR_CMD="$BIN tx staking create-validator \
   --commission-rate 0.05 \
   --commission-max-rate 0.10 \
   --commission-max-change-rate 0.01 \
-  --min-self-delegation 99000000000000000000$DENOM_UNIT \
+  --min-self-delegation 99000000000000000000 \
   --gas auto \
   --gas-prices 100$DENOM_UNIT \
   --from validator \
