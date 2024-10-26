@@ -48,7 +48,6 @@ VALIDATOR_CMD="$BIN tx staking create-validator \
 
 if [ -f "$LOG_FILE" ]; then
   echo "Validator creation log file exists."
-  break
 else
   echo "Validator creation log file does not exist."
   echo "Creating validator..."
