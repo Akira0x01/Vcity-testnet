@@ -22,6 +22,17 @@ fi
 echo "Adding wallet addresses..."
 echo "$VALIDATOR_WALLET" | $BIN keys add validator --home "$DATA_DIR" --chain-id "$CHAIN_ID" --keyring-backend test --recover
 
+# export validator info
+echo "Exporting validator info..."
+acc_address=$($BIN keys show validator --bech acc -a --home $DATA_DIR --keyring-backend test)
+val_address=$($BIN keys show validator --bech val -a --home $DATA_DIR --keyring-backend test)
+cons_address=$($BIN keys show validator --bech cons -a --home $DATA_DIR --keyring-backend test)
+hex_address=$($BIN debug addr $acc_address | grep -oP "0x[A-Fa-f0-9]+")
+jq '.acc_address = "'$acc_address'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+jq '.val_address = "'$val_address'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+jq '.cons_address = "'$cons_address'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+jq '.hex_address = "'$hex_address'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+
 LOG_FILE="$DATA_DIR/create_validator.log"
 STAKE_AMOUNT="100000000000000000000"
 MONIKER="vcity-validator"

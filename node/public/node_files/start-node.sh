@@ -121,19 +121,16 @@ if [ "$NODE_TYPE" == "first_node" ]; then
   cp priv_validator_key.json $DATA_DIR/config/priv_validator_key.json
 fi
 
+# export node info
+echo "Exporting node info..."
+echo '{}' > $NODE_INFO_FILE
+jq '.node_type = "'$NODE_TYPE'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+jq '.node_id = "'$($BIN tendermint show-node-id --home $DATA_DIR)'"' $NODE_INFO_FILE > tmp.$$.json && mv tmp.$$.json $NODE_INFO_FILE
+
 # start create validator node script
 if [ "$NODE_TYPE" == "validator_node" ]; then
   nohup ./check_sync_and_create_validator.sh > /dev/null 2>&1 &
 fi
-
-# export node info
-NODE_INFO_FILE="$DATA_DIR/node_info.txt"
-echo "Node type: $NODE_TYPE" > $NODE_INFO_FILE
-$BIN debug addr $($BIN keys show validator -a --home $DATA_DIR --keyring-backend test) >> $NODE_INFO_FILE
-$BIN debug addr $(grep "Address hex:" "$NODE_INFO_FILE" | awk -F'[: ]' '{print $4}') >> $NODE_INFO_FILE
-# node id
-echo "Node ID: $($BIN tendermint show-node-id --home $DATA_DIR)" >> $NODE_INFO_FILE
-
 
 # start node
 echo "Starting node..."
