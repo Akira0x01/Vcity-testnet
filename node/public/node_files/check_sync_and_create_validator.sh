@@ -30,7 +30,7 @@ touch $LOG_FILE
 
 VALIDATOR_CMD="$BIN tx staking create-validator \
   --amount $STAKE_AMOUNT$DENOM_UNIT \
-  --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chian-id $CHAIN_ID) \
+  --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
   --moniker $MONIKER \
   --chain-id $CHAIN_ID \
   --commission-rate 0.05 \
