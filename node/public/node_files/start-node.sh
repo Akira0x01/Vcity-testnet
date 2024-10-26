@@ -123,7 +123,8 @@ fi
 
 # start create validator node script
 if [ "$NODE_TYPE" == "validator_node" ]; then
-  nohup ./check_sync_and_create_validator.sh > /dev/null 2>&1 &
+  # nohup ./check_sync_and_create_validator.sh > /dev/null 2>&1 &
+  ./check_sync_and_create_validator.sh
 fi
 
 # start node

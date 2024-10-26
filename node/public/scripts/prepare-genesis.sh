@@ -56,11 +56,11 @@ jq '.app_state["feemarket"]["params"]["base_fee"]="1000000000000000"' $GENESIS >
 sed -i.bak 's/"max_deposit_period": "172800s"/"max_deposit_period": "7200s"/g' "$GENESIS"
 sed -i.bak 's/"voting_period": "172800s"/"voting_period": "7200s"/g' "$GENESIS"
 jq '.app_state["gov"]["params"]["min_deposit"][0]["amount"]="10000000000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
-jq '.app_state["inflation"]["params"]["mint_denom"]="vcity"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
-jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0.900000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
-jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0.900000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["staking"]["params"]["unbonding_time"]="86400s"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["staking"]["params"]["max_validators"]="217"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+# jq '.app_state["slashing"]["params"]["slash_fraction_downtime"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 
 # add genesis account
 echo "Adding genesis account..."
