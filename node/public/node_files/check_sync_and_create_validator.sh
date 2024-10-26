@@ -39,22 +39,22 @@ MONIKER="vcity-validator"
 
 touch $LOG_FILE
 
-VALIDATOR_CMD="$BIN tx staking create-validator \
-  --amount $STAKE_AMOUNT$DENOM_UNIT \
-  --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
-  --moniker $MONIKER \
-  --chain-id $CHAIN_ID \
-  --commission-rate 0.05 \
-  --commission-max-rate 0.10 \
-  --commission-max-change-rate 0.01 \
-  --min-self-delegation 99000000000000000000 \
-  --gas auto \
-  --gas-prices 100$DENOM_UNIT \
-  --from validator \
-  --keyring-backend test \
-  --home $DATA_DIR \
-  --yes
-"
+# VALIDATOR_CMD="$BIN tx staking create-validator \
+#   --amount=$STAKE_AMOUNT$DENOM_UNIT \
+#   --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
+#   --moniker=$MONIKER \
+#   --chain-id=$CHAIN_ID \
+#   --commission-rate="0.05" \
+#   --commission-max-rate="0.10" \
+#   --commission-max-change-rate="0.01" \
+#   --min-self-delegation="99000000000000000000" \
+#   --gas=auto \
+#   --gas-prices="100$DENOM_UNIT" \
+#   --from=validator \
+#   --keyring-backend=test \
+#   --home=$DATA_DIR \
+#   --yes
+# "
 
 if [ -f "$LOG_FILE" ]; then
   echo "Validator creation log file exists."
@@ -73,7 +73,23 @@ while true; do
     if [ "$catching_up" = "false" ]; then
         echo "$(date) - Node is synced. Creating validator..." >> $LOG_FILE
         echo "Validator creation command: $VALIDATOR_CMD" >> $LOG_FILE
-        eval $VALIDATOR_CMD >> $LOG_FILE 2>&1
+        # eval $VALIDATOR_CMD >> $LOG_FILE 2>&1
+        $BIN tx staking create-validator \
+          --amount=$STAKE_AMOUNT$DENOM_UNIT \
+          --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chain-id $CHAIN_ID) \
+          --moniker=$MONIKER \
+          --chain-id=$CHAIN_ID \
+          --commission-rate="0.05" \
+          --commission-max-rate="0.10" \
+          --commission-max-change-rate="0.01" \
+          --min-self-delegation="99000000000000000000" \
+          --gas=auto \
+          --gas-prices="100$DENOM_UNIT" \
+          --from=validator \
+          --keyring-backend=test \
+          --home=$DATA_DIR \
+          --yes \
+          >> $LOG_FILE 2>&1
         echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
         break
     else
