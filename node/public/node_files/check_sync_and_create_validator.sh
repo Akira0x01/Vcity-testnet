@@ -24,14 +24,13 @@ echo "$VALIDATOR_WALLET" | $BIN keys add validator --home "$DATA_DIR" --chain-id
 
 LOG_FILE="$DATA_DIR/create_validator.log"
 STAKE_AMOUNT="100000000000000000000"
-PUB_KEY=$($BIN tendermint show-validator --home $DATA_DIR --chian-id $CHAIN_ID)
 MONIKER="vcity-validator"
 
 touch $LOG_FILE
 
 VALIDATOR_CMD="$BIN tx staking create-validator \
   --amount $STAKE_AMOUNT$DENOM_UNIT \
-  --pubkey $PUB_KEY \
+  --pubkey=$($BIN tendermint show-validator --home $DATA_DIR --chian-id $CHAIN_ID) \
   --moniker $MONIKER \
   --chain-id $CHAIN_ID \
   --commission-rate 0.05 \
