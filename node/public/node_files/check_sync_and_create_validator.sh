@@ -89,8 +89,13 @@ while true; do
           --home=$DATA_DIR \
           --yes \
           >> $LOG_FILE 2>&1
-        echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
-        break
+        if [ $? -eq 0 ]; then
+            echo "Command executed successfully."
+            echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
+            break
+        else
+            echo "Command failed with exit code $?"
+        fi
     else
         echo "$(date) - Node is not synced. Waiting for 1 minute." >> $LOG_FILE
     fi
