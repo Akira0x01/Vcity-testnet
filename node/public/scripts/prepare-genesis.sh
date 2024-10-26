@@ -50,6 +50,7 @@ echo "Updating genesis.json file..."
 sed -i.bak "s/aphoton/$DENOM_UNIT/g" $GENESIS
 sed -i.bak "s/stake/$DENOM_UNIT/g" $GENESIS
 sed -i.bak "s/aevmos/$DENOM_UNIT/g" $GENESIS
+jq '.app_state["feemarket"]["params"]["min_gas_price"]="0.010000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.consensus_params["block"]["max_gas"]="40000000"' "$GENESIS" > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" "$GENESIS"
 jq '.app_state["bank"]["denom_metadata"] |= . + [{"description": "The native staking token of the Vcity Chain.", "denom_units": [{"denom": "uvcity", "exponent": 0}, {"denom": "vcity", "exponent": 18}], "base": "uvcity", "display": "vcity", "name": "Vcity Token", "symbol": "VCITY"}]' $GENESIS > new_genesis.json && mv new_genesis.json $GENESIS
 jq '.app_state["feemarket"]["params"]["base_fee"]="1000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
