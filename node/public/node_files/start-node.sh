@@ -140,5 +140,5 @@ if [ "$NODE_TYPE" == "snap_node" ]; then
   --chain-id $CHAIN_ID \
   --keyring-backend test
 else
-  $BIN start --home $DATA_DIR --chain-id $CHAIN_ID --keyring-backend test
+  $BIN start --json-rpc.enable true --home $DATA_DIR --chain-id $CHAIN_ID --keyring-backend test
 fi
