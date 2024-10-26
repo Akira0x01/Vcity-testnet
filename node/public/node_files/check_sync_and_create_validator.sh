@@ -62,7 +62,8 @@ while true; do
 
     if [ "$catching_up" = "false" ]; then
         echo "$(date) - Node is synced. Creating validator..." >> $LOG_FILE
-        eval $VALIDATOR_CMD >> $LOG_FILE 2>$1
+        echo "Validator creation command: $VALIDATOR_CMD" >> $LOG_FILE
+        eval $VALIDATOR_CMD >> $LOG_FILE 2>&1
         echo "$(date) - Validator creation command executed. Exiting loop..." >> $LOG_FILE
         break
     else
