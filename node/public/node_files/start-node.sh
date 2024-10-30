@@ -143,5 +143,5 @@ elif [ "$NODE_TYPE" == "normal_node" ]; then
   LOG_FILE="$DATA_DIR/node.log"
   $BIN start --json-rpc.enable true --home $DATA_DIR --chain-id $CHAIN_ID --keyring-backend test >> $LOG_FILE 2>&1
 else
-  $BIN start --json-rpc.enable true --home $DATA_DIR --chain-id $CHAIN_ID --keyring-backend test --log_level panic
+  $BIN start --json-rpc.enable true --home $DATA_DIR --chain-id $CHAIN_ID --keyring-backend test
 fi
