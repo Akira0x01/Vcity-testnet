@@ -84,8 +84,7 @@ while true; do
       --commission-max-change-rate="0.01" \
       --min-self-delegation="99000000000000000000" \
       --fees=1500000000000000$DENOM_UNIT \
-      # --gas-prices="100$DENOM_UNIT" \
-      --from=validator \
+      --from validator \
       --keyring-backend=test \
       --home=$DATA_DIR \
       --yes \
