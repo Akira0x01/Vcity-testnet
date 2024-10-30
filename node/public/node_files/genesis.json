@@ -1,5 +1,5 @@
 {
-  "genesis_time": "2024-10-23T12:48:51.414878114Z",
+  "genesis_time": "2024-10-30T12:42:35.020559851Z",
   "chain_id": "vcitychain_20230825-1",
   "initial_height": "1",
   "consensus_params": {
@@ -91,7 +91,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "200000000000000000000000000"
+              "amount": "2000000000000000000000000000"
             }
           ]
         },
@@ -100,7 +100,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "40000000000000000000000000"
+              "amount": "6000000000000000000000000000"
             }
           ]
         },
@@ -109,7 +109,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "40000000000000000000000000"
+              "amount": "500000000000000000000000000"
             }
           ]
         },
@@ -118,7 +118,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "40000000000000000000000000"
+              "amount": "500000000000000000000000000"
             }
           ]
         },
@@ -127,7 +127,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "40000000000000000000000000"
+              "amount": "500000000000000000000000000"
             }
           ]
         },
@@ -136,7 +136,7 @@
           "coins": [
             {
               "denom": "uvcity",
-              "amount": "40000000000000000000000000"
+              "amount": "500000000000000000000000000"
             }
           ]
         }
@@ -144,7 +144,7 @@
       "supply": [
         {
           "denom": "uvcity",
-          "amount": "400000000000000000000000000"
+          "amount": "10000000000000000000000000000"
         }
       ],
       "denom_metadata": [
@@ -152,18 +152,18 @@
           "description": "The native staking token of the Vcity Chain.",
           "denom_units": [
             {
-              "denom": "uVCITY",
+              "denom": "uvcity",
               "exponent": 0,
               "aliases": []
             },
             {
-              "denom": "VCITY",
+              "denom": "vcity",
               "exponent": 18,
               "aliases": []
             }
           ],
-          "base": "uVCITY",
-          "display": "VCITY",
+          "base": "uvcity",
+          "display": "vcity",
           "name": "Vcity Token",
           "symbol": "VCITY",
           "uri": "",
@@ -303,7 +303,7 @@
         "elasticity_multiplier": 2,
         "enable_height": "0",
         "base_fee": "1000000000000000",
-        "min_gas_price": "0.000000000000000000",
+        "min_gas_price": "0.010000000000000000",
         "min_gas_multiplier": "0.500000000000000000"
       },
       "block_gas": "0"
@@ -332,7 +332,7 @@
                 "validator_address": "evmosvaloper164c52kkezr4qpzvq66wmk7x68jsv8q4fxeguz5",
                 "pubkey": {
                   "@type": "/cosmos.crypto.ed25519.PubKey",
-                  "key": "eJssObooV44VXn5XhHF6I0iXOpil5I0ugImVivTsalg="
+                  "key": "tgu/1FU0KP7FQ04IENpgKa/A9L+MwydSPAOtn6CVFCQ="
                 },
                 "value": {
                   "denom": "uvcity",
@@ -340,7 +340,7 @@
                 }
               }
             ],
-            "memo": "68a63f320afb965c3e3451594219851752c60500@192.168.1.2:26656",
+            "memo": "fd4077440f078132d7d26e502c9a22958c696458@192.168.1.2:26656",
             "timeout_height": "0",
             "extension_options": [],
             "non_critical_extension_options": []
@@ -361,7 +361,12 @@
               }
             ],
             "fee": {
-              "amount": [],
+              "amount": [
+                {
+                  "denom": "uvcity",
+                  "amount": "1000000"
+                }
+              ],
               "gas_limit": "200000",
               "payer": "",
               "granter": ""
@@ -369,7 +374,7 @@
             "tip": null
           },
           "signatures": [
-            "thlz4mDRcVtvRUyqpu23uxc9f8Gzg0SylZe51Ei42x46m8/RTbBKcIZGhYwlF0tMzp0h0fqIe/POb7Y/2NtLZAE="
+            "phertnvnXBa7of8ga3tJFW7LUB7ijgLHsu2YHeOAIHM9l2G/Wzp+6eZGJ7zNIrrN86jE9+40DEbIVnYVXGdgjwE="
           ]
         }
       ]
@@ -455,11 +460,11 @@
           "max_variance": "0.000000000000000000"
         },
         "inflation_distribution": {
-          "staking_rewards": "0.900000000000000000",
+          "staking_rewards": "0.533333334000000000",
           "usage_incentives": "0.000000000000000000",
-          "community_pool": "0.100000000000000000"
+          "community_pool": "0.466666666000000000"
         },
-        "enable_inflation": true
+        "enable_inflation": false
       },
       "period": "0",
       "epoch_identifier": "day",

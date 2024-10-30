@@ -57,15 +57,16 @@ jq '.app_state["feemarket"]["params"]["base_fee"]="1000000000000000"' $GENESIS >
 sed -i.bak 's/"max_deposit_period": "172800s"/"max_deposit_period": "7200s"/g' "$GENESIS"
 sed -i.bak 's/"voting_period": "172800s"/"voting_period": "7200s"/g' "$GENESIS"
 jq '.app_state["gov"]["params"]["min_deposit"][0]["amount"]="10000000000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
-jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
-jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0.900000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+# jq '.app_state["inflation"]["params"]["inflation_distribution"]["staking_rewards"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+# jq '.app_state["inflation"]["params"]["inflation_distribution"]["community_pool"]="0.900000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
+jq '.app_state["inflation"]["params"]["enable_inflation"]=false' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["staking"]["params"]["unbonding_time"]="86400s"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 jq '.app_state["staking"]["params"]["max_validators"]="217"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 # jq '.app_state["slashing"]["params"]["slash_fraction_downtime"]="0.100000000000000000"' $GENESIS > "$TEMP_GENESIS" && mv "$TEMP_GENESIS" $GENESIS
 
 # add genesis account
 echo "Adding genesis account..."
-$BIN add-genesis-account "$TEAM_WALLET_ADDRESS" 200000000000000000000000000$DENOM_UNIT --home "$DATA_DIR"
+$BIN add-genesis-account "$TEAM_WALLET_ADDRESS" 2000000000000000000000000000$DENOM_UNIT --home "$DATA_DIR"
 ADDRESS_0=$($BIN keys show key0 -a --home "$DATA_DIR" --keyring-backend test)
 ADDRESS_1=$($BIN keys show key1 -a --home "$DATA_DIR" --keyring-backend test)
 ADDRESS_2=$($BIN keys show key2 -a --home "$DATA_DIR" --keyring-backend test)
@@ -76,16 +77,16 @@ addresses=(
     $ADDRESS_1
     $ADDRESS_2
     $ADDRESS_3
-    $ADDRESS_4
 )
 for address in "${addresses[@]}"; do
-    $BIN add-genesis-account "$address" 40000000000000000000000000$DENOM_UNIT --home "$DATA_DIR"
+    $BIN add-genesis-account "$address" 500000000000000000000000000$DENOM_UNIT --home "$DATA_DIR"
 done
+$BIN add-genesis-account "$ADDRESS_4" 6000000000000000000000000000$DENOM_UNIT --home "$DATA_DIR"
 
 # add genesis validator
 echo "Adding genesis validator..."
 mkdir -p "$DATA_DIR/config/gentx"
-$BIN gentx key0 200000000000000000000$DENOM_UNIT --home "$DATA_DIR" --chain-id "$CHAIN_ID" --keyring-backend test --output-document "$DATA_DIR/config/gentx/key0.json"
+$BIN gentx key0 200000000000000000000$DENOM_UNIT --home "$DATA_DIR" --chain-id "$CHAIN_ID" --keyring-backend test --output-document "$DATA_DIR/config/gentx/key0.json" --fees 1000000$DENOM_UNIT
 
 # collect genesis transactions
 echo "Collecting genesis transactions..."
