@@ -117,7 +117,7 @@ services:
       - MONIKER=snap_node
     volumes:
       - ../public/node_files:/app/node_files
-      - ./snap_node:/home/user/.vcity
+      - ./snap_node2:/home/user/.vcity
       # - ../public/bin/:/home/user/bin
     command:
       - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh snap_node
