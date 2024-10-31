@@ -6,9 +6,9 @@ services:
       - MONIKER=normal_node
     volumes:
       - ../public/node_files:/home/user/node_files
-      - ./nomal_node:/home/user/.vcity
+      - ./normal_node:/home/user/.vcity
     command: 
-      - cp -r /home/user/node_files/* /home/user/ && ./start-node.sh normal_node
+      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh normal_node
     restart: always
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
