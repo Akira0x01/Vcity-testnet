@@ -11,7 +11,7 @@ if %errorlevel% equ 0 (
 )
 
 :: Run docker-compose up -d
-docker-compose up -d nomal-node
+docker-compose up -d normal_node
 if %errorlevel% equ 0 (
     echo Docker-compose is running in the background.
 ) else (
