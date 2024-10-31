@@ -89,6 +89,7 @@ if [ "$NODE_TYPE" == "seed_node" ]; then
 fi
 if [ "$NODE_TYPE" == "normal_node" ]; then
   sed -i '/\[statesync\]/,/enable = false/s/enable = false/enable = true/' "$CONFIG"
+  sed -i "s/rpc_servers = \".*\"/rpc_servers = \"$RPC_SERVERS\"/g" "$CONFIG"
 fi
 
 
