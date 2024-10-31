@@ -15,10 +15,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    ports:
-      - "26656-26657:26656-26657"
-      - "8545:8545"
-      - "1317:1317"
 
   first_node:
     container_name: first_node
