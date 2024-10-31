@@ -90,6 +90,10 @@ fi
 if [ "$NODE_TYPE" == "normal_node" ]; then
   sed -i '/\[statesync\]/,/enable = false/s/enable = false/enable = true/' "$CONFIG"
   sed -i "s/rpc_servers = \".*\"/rpc_servers = \"$RPC_SERVERS\"/g" "$CONFIG"
+  BLOCK_HEIGHT=$(curl -s $SNAP_RPC/block | jq -r .result.block.header.height | awk '{print $1 - ($1 % 2000-3)}') &&
+  TRUST_HASH=$(curl -s "$SNAP_RPC/block?height=$BLOCK_HEIGHT" | jq -r .result.block_id.hash)
+  sed -i "s/trust_height = 0/trust_height = $BLOCK_HEIGHT/g" "$CONFIG"
+  sed -i "s/trust_hash = \"\"/trust_hash = \"$TRUST_HASH\"/g" "$CONFIG"
 fi
 
 
