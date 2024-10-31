@@ -108,11 +108,9 @@ if [ "$NODE_TYPE" == "validator_node" ]; then
 fi
 
 # pruning settings
-if [[ "$NODE_TYPE" == "normal_node" || "$NODE_TYPE" == "seed_node" ]]; then
-  sed -i 's/pruning = "default"/pruning = "everything"/g' "$APP_CONFIG"
-fi
 if [ "$NODE_TYPE" == "snap_node" ]; then
   sed -i 's/pruning = "default"/pruning = "nothing"/g' "$APP_CONFIG"
+  sed -i 's/localhost/0.0.0.0/g' "$CONF_DIR/client.toml"
 fi
 
 # cp node_key.json and priv_validator_key.json
