@@ -5,7 +5,7 @@ services:
     environment:
       - MONIKER=normal_node
     volumes:
-      - ../public/node_files:/home/user/node_files
+      - ../public/node_files:/app/node_files
       - ./normal_node:/home/user/.vcity
     command: 
       - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh normal_node
