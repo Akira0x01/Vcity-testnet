@@ -120,7 +120,7 @@ services:
       - ./seed_node:/home/user/.vcity
       # - ../public/bin/:/home/user/bin
     command:
-      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh snap_node
+      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh seed_node
     restart: always
     healthcheck:
       test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
