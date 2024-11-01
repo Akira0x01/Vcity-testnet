@@ -109,3 +109,25 @@ services:
       - "26661-26662:26656-26657"
       - "8547:8545"
       - "1319:1317"
+
+  seed_node:
+    container_name: seed_node
+    image: "vcity/validator"
+    environment:
+      - MONIKER=seed_node
+    volumes:
+      - ../public/node_files:/app/node_files
+      - ./seed_node:/home/user/.vcity
+      # - ../public/bin/:/home/user/bin
+    command:
+      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./*.sh && ./start-node.sh snap_node
+    restart: always
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "26663-26664:26656-26657"
+      - "8548:8545"
+      - "1320:1317"
