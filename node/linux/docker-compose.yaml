@@ -1,24 +1,4 @@
 services:
-  normal_node:
-    container_name: normal_node
-    image: "vcity/validator"
-    environment:
-      - MONIKER=normal_node
-    volumes:
-      - ../public/node_files:/app/node_files
-      - ./normal_node:/home/user/.vcity
-    command: 
-      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh normal_node
-    restart: always
-    healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-    ports:
-      - "26656-26657:26656-26657"
-      - "8545:8545"
-      - "1317:1317"
 
   first_node:
     container_name: first_node
@@ -62,9 +42,9 @@ services:
       timeout: 10s
       retries: 5
     ports:
-      - "26656-26657:26656-26657"
-      - "8545:8545"
-      - "1317:1317"
+      - "26659-26660:26656-26657"
+      - "8546:8545"
+      - "1318:1317"
 
   validator_node_2:
     container_name: validator_node_2
@@ -84,9 +64,9 @@ services:
       timeout: 10s
       retries: 5
     ports:
-      - "26659-26660:26656-26657"
-      - "8546:8545"
-      - "1318:1317"
+      - "26662-26663:26656-26657"
+      - "8547:8545"
+      - "1319:1317"
 
   snap_node:
     container_name: snap_node
@@ -106,9 +86,9 @@ services:
       timeout: 10s
       retries: 5
     ports:
-      - "26661-26662:26656-26657"
-      - "8547:8545"
-      - "1319:1317"
+      - "26665-26666:26656-26657"
+      - "8548:8545"
+      - "1320:1317"
 
   seed_node:
     container_name: seed_node
@@ -128,6 +108,27 @@ services:
       timeout: 10s
       retries: 5
     ports:
-      - "26663-26664:26656-26657"
-      - "8548:8545"
-      - "1320:1317"
+      - "26668-26669:26656-26657"
+      - "8549:8545"
+      - "1321:1317"
+
+  normal_node:
+    container_name: normal_node
+    image: "vcity/validator"
+    environment:
+      - MONIKER=normal_node
+    volumes:
+      - ../public/node_files:/app/node_files
+      - ./normal_node:/home/user/.vcity
+    command: 
+      - cp /app/node_files/* /home/user/ && cp /app/node_files/.env /home/user/ && cp /home/user/bin/* /home/user/ && chmod +x ./start-node.sh && ./start-node.sh normal_node
+    restart: always
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:26657/status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+      - "26671-26672:26656-26657"
+      - "8550:8545"
+      - "1322:1317"
